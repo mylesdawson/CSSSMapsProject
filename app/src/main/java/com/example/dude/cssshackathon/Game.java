@@ -75,6 +75,9 @@ public class Game extends AppCompatActivity{
         Random generator = new Random();
         Object[] mobs = mobMap.values().toArray();
         String randomMob = (String) mobs[generator.nextInt(mobs.length)];
-
+        int[]  mob = mobMap.get(randomMob);
+        while(mob[0] > 0 && hp > 0){
+            
+        }
     }
 }
