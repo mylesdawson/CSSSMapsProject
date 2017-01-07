@@ -1,4 +1,5 @@
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import java.io.*;
 
@@ -6,7 +7,7 @@ import java.io.*;
  * Created by panca on 2017-01-07.
  */
 
-public class Character {
+public class Character extends AppCompatActivity{
     String name;
     private int hpMax;
     private int hp;
@@ -46,7 +47,7 @@ public class Character {
             //xpToNext += 100;
             hpMax += 5;
             apMax += 5;
-            Toast.makeText(this, "You have leved up!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You have leveled up!", Toast.LENGTH_SHORT).show();
         }
     }
 
