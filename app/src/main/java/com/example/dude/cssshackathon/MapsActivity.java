@@ -51,7 +51,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .addApi(LocationServices.API)
                     .build();
         }
-
         // Enables device location
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -64,7 +63,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }
         mMap.setMyLocationEnabled(true);
-
     }
 
 
@@ -80,6 +78,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        settingsUI();
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
@@ -139,18 +138,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     protected  void settingsUI(){
         mMap.getUiSettings().setCompassEnabled(true);
+        mMap.getUiSettings().setCompassEnabled(true);
+
         mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.getUiSettings().setZoomGesturesEnabled(false);
-
+        mMap.getUiSettings().setTiltGesturesEnabled(false);
+        mMap.getUiSettings().setScrollGesturesEnabled(false);
     }
 
-    //get the current location settings of a user's device
-    LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-            .addLocationRequest(mLocationRequest);
-
-    //check whether the current location settings are satisfied
-    PendingResult<LocationSettingsResult> result =
-            LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient,
-                    builder.build());
 }
 
