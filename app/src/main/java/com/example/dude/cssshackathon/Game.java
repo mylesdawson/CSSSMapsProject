@@ -1,13 +1,17 @@
+package com.example.dude.cssshackathon;
+
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import java.io.*;
+import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Created by panca on 2017-01-07.
  */
 
-public class Character extends AppCompatActivity{
+public class Game extends AppCompatActivity{
     String name;
     private int hpMax;
     private int hp;
@@ -21,8 +25,10 @@ public class Character extends AppCompatActivity{
     private int apPot;
     private int dart;
     private int gold;
+    public static HashMap<String, int[]> mobMap = new HashMap<String, int[]>();
+    private static int numMob;
 
-    public Character(String inputName){
+    public Game(String inputName){
         name = inputName;
         hp = 100;
         ap = 100;
@@ -53,12 +59,22 @@ public class Character extends AppCompatActivity{
 
     public void save(){
         FileOutputStream out;
-    //    try{
-      //      out = openFileOutput
+        //    try{
+        //      out = openFileOutput
         //}
     }
 
     public void load(){
+
+    }
+    public void loadMob(){
+
+    }
+
+    public void encounter() {
+        Random generator = new Random();
+        Object[] mobs = mobMap.values().toArray();
+        String randomMob = (String) mobs[generator.nextInt(mobs.length)];
 
     }
 }

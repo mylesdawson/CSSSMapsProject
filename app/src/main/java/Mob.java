@@ -3,14 +3,14 @@
  */
 
 public class Mob {
-    private String name;
-    private int hp;
-    private int xp;
-    private int gold;
-    private int hpPot;
-    private int apPot;
-    private int darts;
-    private int att;
+    public static String name;
+    public int hp;
+    public int xp;
+    public int gold;
+    public int hpPot;
+    public int apPot;
+    public int darts;
+    public int att;
 
     public Mob(String nameInput, int[] stats){
         name = nameInput;
