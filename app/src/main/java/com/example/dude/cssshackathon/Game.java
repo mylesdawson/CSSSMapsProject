@@ -71,13 +71,28 @@ public class Game extends AppCompatActivity{
 
     }
 
-    public void encounter() {
+    public int encounter() {
         Random generator = new Random();
         Object[] mobs = mobMap.values().toArray();
         String randomMob = (String) mobs[generator.nextInt(mobs.length)];
         int[]  mob = mobMap.get(randomMob);
-        while(mob[0] > 0 && hp > 0){
-            
+        while(mob[0] > 0 && hp > 0) {
+            userAction();
+            if(mob[0] > 0) hp -= mob[1];
         }
+        if(hp > 0){
+            xp += mob[2];
+            gold += mob[3];
+            hpPot += mob[4];
+            apPot += mob[5];
+            dart += mob[6];
+            hp = hpMax;
+            ap = apMax;
+            return 0;
+        }
+        return 1;
+    }
+    private void userAction(){
+
     }
 }

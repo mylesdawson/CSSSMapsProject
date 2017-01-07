@@ -5,12 +5,12 @@
 public class Mob {
     public static String name;
     public int hp;
+    public int att;
     public int xp;
     public int gold;
     public int hpPot;
     public int apPot;
     public int darts;
-    public int att;
 
     public Mob(String nameInput, int[] stats){
         name = nameInput;
