@@ -84,19 +84,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         if (mLastLocation != null) {
-            Toast.makeText(this, "Last location successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Last location successful", Toast.LENGTH_LONG).show();
         }
         createLocationRequest();
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        //Do something
+        Toast.makeText(this, "Connection Lost", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        //Say something
+        Toast.makeText(this, "Connection Failed", Toast.LENGTH_LONG).show();
     }
 
     protected void onStart() {
@@ -111,6 +111,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     protected void createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();
+        //Location requested every 1s
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
