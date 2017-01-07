@@ -8,7 +8,6 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    public Button btn;
 
     public Button btnFight;
     @Override
@@ -16,16 +15,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn = (Button) findViewById(R.id.button);
-
         btnFight = (Button) findViewById(R.id.fight);
-        btnFight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(),activity_second.class);
-                startActivityForResult(myIntent,0);
-            }
-        });
+    }
+
+    public void startSecondActivity(View view){
+        Intent intent = new Intent(this, activity_second.class);
+        startActivity(intent);
     }
 
 }
