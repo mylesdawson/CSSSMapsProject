@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:baselineAligned="false">
+
+    <Button
+        android:text="Start a new game"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/newGameButton"
+        tools:layout_conversion_absoluteX="0dp"
+        tools:layout_conversion_absoluteY="0dp"
+        tools:layout_conversion_absoluteWidth="411dp"
+        tools:layout_conversion_absoluteHeight="103dp"
+        tools:layout_editor_absoluteY="386dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:text="Load"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/loadButtom"
+        tools:layout_conversion_absoluteX="0dp"
+        tools:layout_conversion_absoluteY="103dp"
+        tools:layout_conversion_absoluteWidth="411dp"
+        tools:layout_conversion_absoluteHeight="103dp"
+        tools:layout_editor_absoluteY="489dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+</android.support.constraint.ConstraintLayout>
