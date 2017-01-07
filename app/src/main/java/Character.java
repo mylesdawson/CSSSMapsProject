@@ -1,9 +1,16 @@
+import android.content.Context;
+import android.widget.Toast;
+import java.io.*;
+
 /**
  * Created by panca on 2017-01-07.
  */
 
 public class Character {
+    String name;
+    private int hpMax;
     private int hp;
+    private int apMax;
     private int ap;
     private int xp;
     private int lvl;
@@ -14,9 +21,12 @@ public class Character {
     private int dart;
     private int gold;
 
-    public Character(){
+    public Character(String inputName){
+        name = inputName;
         hp = 100;
         ap = 100;
+        hpMax = 100;
+        apMax = 100;
         xp = 0;
         lvl = 0;
         xpToNext = 100;
@@ -27,5 +37,27 @@ public class Character {
         apPot = 5;
         dart = 10;
         gold = 0;
+    }
+
+    public void lvlUp(){
+        if(xp >= xpToNext){
+            lvl++;
+            xp = xp - xpToNext;
+            //xpToNext += 100;
+            hpMax += 5;
+            apMax += 5;
+            Toast.makeText(this, "You have leved up!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void save(){
+        FileOutputStream out;
+    //    try{
+      //      out = openFileOutput
+        //}
+    }
+
+    public void load(){
+
     }
 }
