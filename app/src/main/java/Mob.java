@@ -12,7 +12,14 @@ public class Mob {
     private int darts;
     private int att;
 
-    public Mob(String nameInput){
+    public Mob(String nameInput, int[] stats){
         name = nameInput;
+        hp = stats[0];
+        xp = stats[1];
+        gold = stats[2];
+        hpPot= stats[3];
+        apPot = stats[4];
+        darts = stats[5];
+        att = stats[6];
     }
 }

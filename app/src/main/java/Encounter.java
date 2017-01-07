@@ -10,4 +10,8 @@ import java.util.concurrent.atomic.AtomicIntegerArray;
 public class Encounter extends AppCompatActivity{
     private HashMap<String, int[]> mobMap = new HashMap<String, int[]>();
 
+    public Encounter(){
+        String name = "";
+        Mob mob = new Mob(name, mobMap.get(name));
+    }
 }
