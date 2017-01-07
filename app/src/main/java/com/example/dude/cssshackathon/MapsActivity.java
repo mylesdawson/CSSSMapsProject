@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,6 +27,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
+    private LocationRequest mLocationRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (mLastLocation != null) {
             Toast.makeText(this, "Last location successful", Toast.LENGTH_SHORT).show();
         }
+        createLocationRequest();
     }
 
     @Override
@@ -104,6 +107,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onStop() {
         mGoogleApiClient.disconnect();
         super.onStop();
+    }
+
+    protected void createLocationRequest() {
+        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
 }
