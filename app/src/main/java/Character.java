@@ -28,7 +28,4 @@ public class Character {
         dart = 10;
         gold = 0;
     }
-
-    pu
-
 }
