@@ -1,8 +1,8 @@
 package com.example.dude.cssshackathon;
 
-/**
- * Created by Mahyar on 2017-01-07.
- */
+import android.support.v7.app.AppCompatActivity;
 
-public class activity_second {
+
+
+public class activity_second extends AppCompatActivity {
 }
