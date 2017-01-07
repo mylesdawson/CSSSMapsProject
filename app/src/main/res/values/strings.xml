@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CSSS Hackathon</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
