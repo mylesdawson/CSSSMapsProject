@@ -45,7 +45,6 @@
 
 
         </activity>
-        <activity android:name="Game" />
     </application>
 
 </manifest>
