@@ -5,6 +5,6 @@ package com.example.dude.cssshackathon;
  */
 
 public class Page3 {
-    public String latestAction;
+    public static String latestAction;
 
 }

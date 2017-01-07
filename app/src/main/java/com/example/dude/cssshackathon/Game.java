@@ -77,7 +77,7 @@ public class Game extends AppCompatActivity{
         String randomMob = (String) mobs[generator.nextInt(mobs.length)];
         int[]  mob = mobMap.get(randomMob);
         while(mob[0] > 0 && hp > 0) {
-            userAction();
+            combatAction();
             if(mob[0] > 0) hp -= mob[1];
         }
         if(hp > 0){
@@ -92,7 +92,10 @@ public class Game extends AppCompatActivity{
         }
         return 1;
     }
-    private void userAction(){
+    private void combatAction(){
+        String action = Page3.latestAction;
+    }
+    private void mapAction(){
 
     }
 }
