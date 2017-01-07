@@ -10,18 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.dude.cssshackathon.MainActivity">
 
-    <CheckBox
-        android:text="I agree "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="7dp"
-        android:id="@+id/agree"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,21 +17,21 @@
         android:id="@+id/textView6"
         android:duplicateParentState="false"
         android:freezesText="true"
-        android:text="you are responsible to fight the monsters in your nearest points of interests based on your location.If you are "
+        android:text="you are responsible to fight the monsters in your nearest points of interests based on your location. If your ready hit the ready bottom."
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
-        android:text="Button"
+        android:text="ready to fight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/agree"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="64dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="8dp"
-        android:id="@+id/button" />
+        android:layout_marginLeft="113dp"
+        android:layout_marginStart="113dp"
+        android:layout_marginBottom="102dp"
+        android:id="@+id/fight"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

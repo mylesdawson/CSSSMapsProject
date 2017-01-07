@@ -8,12 +8,16 @@ public class MainActivity extends AppCompatActivity {
 
     public Button btn;
 
+    public Button btnfight;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         btn = (Button) findViewById(R.id.button);
+
+        btnfight = (Button) findViewById(R.id.fight);
+
 
     }
 }
