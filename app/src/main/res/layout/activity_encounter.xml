@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/attack"
-                android:onClick="attackSetText"/>
+                android:onClick="attLis"/>
 
             <Button
                 android:text="items"
@@ -62,7 +62,7 @@
                 android:layout_weight="1"
                 android:layout_above="@+id/shopB"
                 android:text="run"
-                android:onClick="runSetText"/>
+                android:onClick="runLis"/>
 
         </LinearLayout>
 
