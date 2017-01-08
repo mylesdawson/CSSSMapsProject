@@ -145,7 +145,13 @@ public class BattleActivity extends AppCompatActivity {
         super.onPause();
         mediaPlayer.stop();
         mediaPlayer.release();
-
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.battle_theme);
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);
     }
 
     public void setEnemyHP(){

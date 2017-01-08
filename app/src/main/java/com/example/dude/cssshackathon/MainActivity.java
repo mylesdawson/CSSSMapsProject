@@ -38,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer.stop();
         mediaPlayer.release();
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.all_of_us);
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);
+    }
 
 
 }

@@ -44,13 +44,14 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
 
     public static final String TAG = MapsActivity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
 
     private static double MAX_DISTANCE = .0001;
     private static double MAX_DISTANCE_NEGATIVE = -.001;
     public boolean deviceMoved = false;
 
-    private static double DISTANCE_REQUIRED_LAT = .00008;
-    private static double DISTANCE_REQUIRED_LNG = .00008;
+    private static double DISTANCE_REQUIRED_LAT = .000082;
+    private static double DISTANCE_REQUIRED_LNG = .000082;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -69,6 +70,13 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_CODE_ASK_PERMISSIONS);
+            requestPermissions(new String[] {Manifest.permission.ACCESS_COARSE_LOCATION},
+                    REQUEST_CODE_ASK_PERMISSIONS);
+        }
 
         // ATTENTION: This "addApi(AppIndex.API)"was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -90,12 +98,15 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        //mMap.setMinZoomPreference(18);
-        //mMap.setMaxZoomPreference(18);
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.setMinZoomPreference(18);
+        mMap.setMaxZoomPreference(18);
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //mMap.setMyLocationEnabled(true);
+            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_CODE_ASK_PERMISSIONS);
+            requestPermissions(new String[] {Manifest.permission.ACCESS_COARSE_LOCATION},
+                    REQUEST_CODE_ASK_PERMISSIONS);
         }
         mMap.setMyLocationEnabled(true);
     }
@@ -103,7 +114,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
 
     @Override
     public void onLocationChanged(Location location) {
-        Toast.makeText(this, "location is being changed", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "location is being changed", Toast.LENGTH_SHORT).show();
         deviceMoved = true;
         handleNewLocation(location);
     }
@@ -111,7 +122,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         // on when connected with GoogleApiClient
-        Toast.makeText(this, "Connection Success!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Connection Success!", Toast.LENGTH_SHORT).show();
         // Create the LocationRequest object
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -119,7 +130,10 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
                 .setFastestInterval(1000);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //mMap.setMyLocationEnabled(true);
+            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_CODE_ASK_PERMISSIONS);
+            requestPermissions(new String[] {Manifest.permission.ACCESS_COARSE_LOCATION},
+                    REQUEST_CODE_ASK_PERMISSIONS);
         }
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
@@ -165,6 +179,9 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     protected void onResume() {
         super.onResume();
         mGoogleApiClient.connect();
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.come_and_find_me);
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);
     }
 
     @Override
@@ -219,7 +236,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
       public void createRandomMapMarker(){
 
           if(mMarker == null){
-              Toast.makeText(this, "gets here", Toast.LENGTH_SHORT).show();
+              //.makeText(this, "gets here", Toast.LENGTH_SHORT).show();
               mMarker = mMap.addMarker(new MarkerOptions()
                       .position(findRandomNearbyLocation(latLng))
                       .title("Fight!"));
@@ -262,16 +279,6 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
             finish();
         }
     }
-
-    public void centerCamera(View view){
-
-        if(deviceMoved && mMap != null){
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-        } else{
-            //do something
-        }
-    }
-
 
 
 }
