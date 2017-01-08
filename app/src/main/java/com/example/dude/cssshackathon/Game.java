@@ -28,6 +28,7 @@ public class Game extends AppCompatActivity{
     public int gold;
     public HashMap<String, int[]> mobMap = new HashMap<String, int[]>();
     public int[] mob = new int[6];
+    public String mobName;
     //private static int numMob;
 public Game(){
 
@@ -85,7 +86,7 @@ public Game(){
             out.write(apPot + '\n');
             out.write(dart + '\n');
             out.write(gold + '\n');
-        } catch(IOException e){
+        } catch(Exception e){
 
         }
     }
@@ -115,7 +116,7 @@ public Game(){
             apPot = Integer.parseInt(data[0]);
             dart = Integer.parseInt(data[0]);
             gold = Integer.parseInt(data[0]);
-        } catch(IOException e){
+        } catch(Exception e){
 
         }
     }
@@ -140,7 +141,7 @@ public Game(){
                 arr[6] = Integer.parseInt(data[6+i]);
                 mobMap.put(data[0], arr);
             }
-        } catch(IOException e){
+        } catch(Exception e){
 
         }
     }
@@ -150,6 +151,7 @@ public Game(){
         Object[] mobs = mobMap.values().toArray();
         String randomMob = (String) mobs[generator.nextInt(mobs.length)];
         mob = mobMap.get(randomMob);
+        mobName = randomMob;
         Intent encounterIntent = new Intent(this, EncounterActivity.class);
         startActivity(encounterIntent);
     }

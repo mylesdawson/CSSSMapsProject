@@ -28,14 +28,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/attack" />
+                android:id="@+id/attack"
+                android:onClick="attackSetText"/>
 
             <Button
                 android:text="items"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/items" />
+                android:id="@+id/items"
+                android:onClick="itemsSetText"/>
 
         </LinearLayout>
 
@@ -50,7 +52,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/abilities" />
+                android:id="@+id/abilities"
+                android:onClick="abilitiesSetText"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -58,7 +61,8 @@
                 android:id="@+id/run"
                 android:layout_weight="1"
                 android:layout_above="@+id/items"
-                android:text="run" />
+                android:text="run"
+                android:onClick="runSetText"/>
 
         </LinearLayout>
 

@@ -2,6 +2,7 @@ package com.example.dude.cssshackathon;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,7 +14,7 @@ import static com.example.dude.cssshackathon.activity_second.game;
 
 public class EncounterActivity extends AppCompatActivity {
     public String latestAction;
-    public String mobName;
+    public static String mobName;
     private Button attack = (Button)findViewById(R.id.attack);
     private Button abilities = (Button)findViewById(R.id.abilities);
     private Button items = (Button)findViewById(R.id.items);
@@ -27,6 +28,53 @@ public class EncounterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encounter);
+        mobInfo.setText(game.mobName + "\nhp: " + game.mob[0] + "\nattack: " + game.mob[1]);
+        playerInfo.setText(game.name + "\nhp: " + game.hp + "|" + game.hpMax + "\nap: " + game.ap + "|" + game.apMax);
+
+        encounter();
+    }
+
+    public void attackSetText(){
+        latestAction = attack.getText().toString();
+    }
+    public void abilitiesSetText(){
+        if(abilities.getText().toString().equals("abilities")){
+            attack.setText(game.ability[0]);
+            abilities.setText(game.ability[1]);
+            items.setText(game.ability[2]);
+            run.setText("back");
+            return;
+        }
+        latestAction = abilities.getText().toString();
+        attack.setText("attack");
+        abilities.setText("abilities");
+        items.setText("items");
+        run.setText("run");
+    }
+    public void itemsSetText(){
+        if(items.getText().toString().equals("items")){
+            attack.setText("hp potion: " + game.hpPot);
+            abilities.setText("dart: " + game.dart);
+            items.setText("ap potion" + game.apPot);
+            run.setText("back");
+            return;
+        }
+        latestAction = items.getText().toString();
+        attack.setText("attack");
+        abilities.setText("abilities");
+        items.setText("items");
+        run.setText("run");
+    }
+    public void runSetText(){
+        if(items.getText().toString().equals("back")){
+            latestAction = "back";
+            attack.setText("attack");
+            abilities.setText("abilities");
+            items.setText("items");
+            run.setText("run");
+            return;
+        }
+        finish();
     }
 
     public void encounter() {
@@ -50,6 +98,7 @@ public class EncounterActivity extends AppCompatActivity {
             game.dart += game.mob[6];
             Toast.makeText(this, "You rekt that " + mobName + "!", Toast.LENGTH_SHORT).show();
             game.lvlUp();
+            game.save();
             finish();
         }
     }
@@ -114,5 +163,10 @@ public class EncounterActivity extends AppCompatActivity {
         }
         Toast.makeText(this, "Not enough AP, you have wasted a turn.", Toast.LENGTH_SHORT).show();
     }
+
+    private void setup(){
+
+    }
+
 
 }
