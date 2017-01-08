@@ -33,7 +33,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Location mLastLocation;
     private LocationRequest mLocationRequest;
 
-
+    public static String latestAction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

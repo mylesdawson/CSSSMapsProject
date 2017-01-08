@@ -12,7 +12,7 @@ import java.util.Random;
  */
 
 public class Game extends AppCompatActivity{
-    String name;
+    public static String name;
     private int hpMax;
     private int hp;
     private int apMax;
@@ -20,7 +20,7 @@ public class Game extends AppCompatActivity{
     private int xp;
     private int lvl;
     private int xpToNext;
-    private String[] ability = new String[3];
+    public String[] ability = new String[3];
     private int hpPot;
     private int apPot;
     private int dart;
@@ -37,9 +37,9 @@ public class Game extends AppCompatActivity{
         xp = 0;
         lvl = 0;
         xpToNext = 100;
-        ability[0] = "\0";
-        ability[1] = "\0";
-        ability[2] = "\0";
+        ability[0] = "none";
+        ability[1] = "none";
+        ability[2] = "none";
         hpPot = 5;
         apPot = 5;
         dart = 10;
@@ -77,7 +77,7 @@ public class Game extends AppCompatActivity{
         String randomMob = (String) mobs[generator.nextInt(mobs.length)];
         int[]  mob = mobMap.get(randomMob);
         while(mob[0] > 0 && hp > 0) {
-            combatAction();
+            combatAction(mob);
             if(mob[0] > 0) hp -= mob[1];
         }
         if(hp > 0){
@@ -92,10 +92,35 @@ public class Game extends AppCompatActivity{
         }
         return 1;
     }
-    private void combatAction(){
+    private void combatAction(int[] mob){
+        boolean resolved = false;
+        Page3.latestAction = "";
         String action = Page3.latestAction;
+        while(!resolved){
+            action = Page3.latestAction;
+            if(action.equals("Attack")) mob[0] -= 20; resolved = true; break;
+            if(action.equals(ability[0])) ability(0); resolved = true; break;
+            if(action.equals(ability[1])) ability(1); resolved = true; break;
+            if(action.equals(ability[1])) ability(2); resolved = true; break;
+            if(action.equals("HP Potion")) hp += hpMax;
+            if(action.equals("AP Potion")) ap += apMax;
+            if(action.equals("Dart")) mob[0] -= 10;
+            if(action.equals("Back")) Page3.Back();
+        }
     }
     private void mapAction(){
+        String action = MapsActivity.latestAction
+        if(action.equals("Attack")) mob[0] -= 20;
+        if(action.equals(ability[0])) ability(0);
+        if(action.equals(ability[1])) ability(1);
+        if(action.equals(ability[1])) ability(2);
+        if(action.equals("HP Potion")) hp += hpMax;
+        if(action.equals("AP Potion")) ap += apMax;
+        if(action.equals("Dart")) mob[0] -= 10;
+    }
 
+    private void ability(int num){
+        string ability
+        if
     }
 }
