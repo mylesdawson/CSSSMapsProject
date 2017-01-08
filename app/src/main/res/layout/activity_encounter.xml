@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/shopB"
-                android:onClick="itemsSetText"/>
+                />
 
         </LinearLayout>
 
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/abilities"
-                android:onClick="abilitiesSetText"/>
+                />
 
             <Button
                 android:layout_width="wrap_content"
