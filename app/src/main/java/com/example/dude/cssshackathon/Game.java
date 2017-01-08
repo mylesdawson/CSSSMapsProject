@@ -27,7 +27,9 @@ public class Game extends AppCompatActivity{
     private int gold;
     public static HashMap<String, int[]> mobMap = new HashMap<String, int[]>();
     private static int numMob;
+public Game(){
 
+}
     public Game(String inputName){
         name = inputName;
         hp = 100;
@@ -44,6 +46,7 @@ public class Game extends AppCompatActivity{
         apPot = 5;
         dart = 10;
         gold = 0;
+        loadMob();
     }
 
     public void lvlUp(){
@@ -115,7 +118,29 @@ public class Game extends AppCompatActivity{
         }
     }
     public void loadMob(){
+        FileInputStream in;
+        try{
+            in = openFileInput("saveFile.txt");
+            StringBuilder builder = new StringBuilder();
+            int ch;
+            while((ch = in.read()) != -1){
+                builder.append((char)ch);
+            }
+            String[] data = builder.toString().split("\\s+");
+            for(int i = 0; i < data.length; i+=8){
+                int[] arr = new int[6];
+                arr[0] = Integer.parseInt(data[1+i]);
+                arr[1] = Integer.parseInt(data[2+i]);
+                arr[2] = Integer.parseInt(data[3+i]);
+                arr[3] = Integer.parseInt(data[4+i]);
+                arr[4] = Integer.parseInt(data[5+i]);
+                arr[5] = Integer.parseInt(data[6+i]);
+                arr[6] = Integer.parseInt(data[6+i]);
+                mobMap.put(data[0], arr);
+            }
+        } catch(IOException e){
 
+        }
     }
 
     public int encounter() {
@@ -133,22 +158,37 @@ public class Game extends AppCompatActivity{
             hpPot += mob[4];
             apPot += mob[5];
             dart += mob[6];
-            hp = hpMax;
-            ap = apMax;
+            lvlUp();
             return 0;
         }
         return 1;
     }
     private void combatAction(int[] mob){
         boolean resolved = false;
-        Page3.latestAction = "";
-        String action = Page3.latestAction;
-        while(!resolved){
-            action = Page3.latestAction;
-            if(action.equals("attack")) mob[0] -= 10; resolved = true; continue;
-            if(action.equals(ability[0])) skill(0, mob); resolved = true; continue;
-            if(action.equals(ability[1])) skill(1, mob); resolved = true; continue
-            if(action.equals(ability[2])) skill(2, mob); resolved = true; continue;
+        EncounterFrame.latestAction = "";
+        String action = EncounterFrame.latestAction;
+        while(!resolved) {
+            action = EncounterFrame.latestAction;
+            if (action.equals("attack")) {
+                mob[0] -= 10;
+                resolved = true;
+                continue;
+            }
+            if (action.equals(ability[0])){
+                skill(0, mob);
+                resolved = true;
+                continue;
+            }
+            if (action.equals(ability[1])){
+                skill(1, mob);
+                resolved = true;
+                continue;
+            }
+            if (action.equals(ability[2])){
+                skill(2, mob);
+                resolved = true;
+                continue;
+            }
             if(action.equals("hp potion")) hp += hpMax;
             if(action.equals("ap potion")) ap += apMax;
             if(action.equals("dart")) mob[0] -= 10;
@@ -161,9 +201,23 @@ public class Game extends AppCompatActivity{
 
     private void skill(int num, int[] mob){
         String use = ability[num];
-        if(use.equals("strong attack: 10") && ap >= 10) mob[0] -= 15; ap -= 10; return;
-        if(use.equals("life steal: 20") && ap >= 20) mob[0] -= 5; hp+= 25 ap -= 20; return;
-        if(use.equals("double strike: 50") && ap >= 50) ap -= 50; combatAction(mob); mob[0] -= 10;return;
+        if(use.equals("strong attack: 10") && ap >= 10){
+            mob[0] -= 15;
+            ap -= 10;
+            return;
+        }
+        if(use.equals("life steal: 20") && ap >= 20){
+            mob[0] -= 5;
+            hp+= 25;
+            ap -= 20;
+            return;
+        }
+        if(use.equals("double strike: 50") && ap >= 50){
+            ap -= 50;
+            combatAction(mob);
+            mob[0] -= 10;
+            return;
+        }
         Toast.makeText(this, "Not enough AP, you have wasted a turn.", Toast.LENGTH_SHORT).show();
     }
 }
