@@ -2,6 +2,7 @@ package com.example.dude.cssshackathon;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -66,7 +67,7 @@ public Game(){
     }
 
     public void save(){
-        FileOutputStream out;
+        /*FileOutputStream out;
         try{
             out = openFileOutput(path+ "saveFile.txt", MODE_PRIVATE);
             out.write(name.getBytes());
@@ -90,11 +91,11 @@ public Game(){
             out.write(gold + '\n');
         } catch(Exception e){
 
-        }
+        }*/
     }
 
     public void load(){
-        FileInputStream in;
+       /* FileInputStream in;
         try{
             in = getApplicationContext().openFileInput("saveFile.txt");
             StringBuilder builder = new StringBuilder();
@@ -120,12 +121,62 @@ public Game(){
             gold = Integer.parseInt(data[0]);
         } catch(Exception e){
 
-        }
+        } */
     }
     public void loadMob(){
-        FileInputStream in;
+        int[][] arr = new int[5][7];
+        arr[0][0] = 100;
+        arr[0][1] = 5;
+        arr[0][2] = 25;
+        arr[0][3] = 10;
+        arr[0][4] = 2;
+        arr[0][5] = 2;
+        arr[0][6] = 2;
+        arr[1][0] = 100;
+        arr[1][1] = 5;
+        arr[1][2] = 25;
+        arr[1][3] = 10;
+        arr[1][4] = 2;
+        arr[1][5] = 2;
+        arr[1][6] = 2;
+        arr[2][0] = 100;
+        arr[2][1] = 5;
+        arr[2][2] = 25;
+        arr[2][3] = 10;
+        arr[2][4] = 2;
+        arr[2][5] = 2;
+        arr[2][6] = 2;
+        arr[2][0] = 100;
+        arr[2][1] = 5;
+        arr[2][2] = 25;
+        arr[2][3] = 10;
+        arr[2][4] = 2;
+        arr[2][5] = 2;
+        arr[2][6] = 2;
+        arr[3][0] = 100;
+        arr[3][1] = 5;
+        arr[3][2] = 25;
+        arr[3][3] = 10;
+        arr[3][4] = 2;
+        arr[3][5] = 2;
+        arr[3][6] = 2;
+        arr[4][0] = 100;
+        arr[4][1] = 5;
+        arr[4][2] = 25;
+        arr[4][3] = 10;
+        arr[4][4] = 2;
+        arr[4][5] = 2;
+        arr[4][6] = 2;
+        mobMap.put("wraith", arr[0]);
+        mobMap.put("wraithhot", arr[1]);
+        mobMap.put("wraithcold", arr[2]);
+        mobMap.put("wraithbright", arr[3]);
+        mobMap.put("wraithdark", arr[4]);
+       /* InputStream in;
+        //AssetManager am = getApplicationContext().getAssets();
         try{
-            in = openFileInput("R.raw.mobs_file.txt");
+            //in = am.open(mobs_file.txt);
+            in = getApplication().getResources().openRawResource(R.raw.mobs_file);
             StringBuilder builder = new StringBuilder();
             int ch;
             while((ch = in.read()) != -1){
@@ -142,10 +193,13 @@ public Game(){
                 arr[5] = Integer.parseInt(data[6+i]);
                 arr[6] = Integer.parseInt(data[6+i]);
                 mobMap.put(data[0], arr);
+                System.out.println("mobs loaded");
             }
         } catch(Exception e){
-            System.out.println("didn't load");
-        }
+                System.out.println("didn't load");
+            System.out.println("Got an IOException: " + e.getMessage());
+
+        } */
     }
 
     public void encounter() {
