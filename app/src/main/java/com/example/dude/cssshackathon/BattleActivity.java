@@ -1,15 +1,21 @@
 package com.example.dude.cssshackathon;
 
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
 
 public class BattleActivity extends AppCompatActivity {
 
+    TextView playerHP;
+    TextView enemyHP;
     ImageView playerImg;
     ImageView enemyImg;
     Button attackBtn;
@@ -17,11 +23,22 @@ public class BattleActivity extends AppCompatActivity {
     Button abilitiesBtn;
     Button runBtn;
 
+    public int enemyHpVal = 10;
+    public int playerHpVal = 10;
+
+    MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
 
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.battle_theme);
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);
+
+        playerHP = (TextView) findViewById(R.id.playerInfo);
+        enemyHP = (TextView) findViewById(R.id.enemyInfo);
         playerImg = (ImageView) findViewById(R.id.playerImg);
         enemyImg = (ImageView) findViewById(R.id.mobImg);
         attackBtn = (Button) findViewById(R.id.attack);
@@ -32,50 +49,59 @@ public class BattleActivity extends AppCompatActivity {
         playerImg.setImageResource(R.mipmap.farengar_sprite);
         enemyImg.setImageResource(R.mipmap.wraith);
 
-        battle();
+        attackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random ran = new Random();
+                int Dmg = ran.nextInt(10);
+                enemyHpVal -= Dmg;
+                setEnemyHP();
+                if(enemyHpVal <= 0){
+                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                    startActivity(intent);
+                    //Return to map
+                    //Gain items/xp
+                } else {
+                    //enemy turn
+                    playerHpVal -= ran.nextInt(10);
+                }
+            }
+        });
+
+        setEnemyHP();
+        setPlayerHP();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mediaPlayer.stop();
+        mediaPlayer.release();
 
     }
 
-    //public static Game game = new Game("Hello.");
-    public static int playerHP = 100;
-    public static int playerLVL = 1;
-    //public static int playerGold = 0;
-    int action = -1;
-
-
-    private int[] randomizeMob(){
-        Random ran = new Random();
-        int[] ret = new int[2];
-        ret[0] = ran.nextInt(playerLVL) + playerLVL;
-        ret[1] = ran.nextInt(playerLVL) + playerLVL;
-        return ret;
+    public void setEnemyHP(){
+        enemyHP.setText("Enemy HP:" + enemyHpVal);
     }
 
-    private void battle(){
-        Random ran = new Random();
-        int[] mobStat = randomizeMob();
-        while(mobStat[0] > 0 && playerHP > 0) {
-            while (action == -1);
-            if (action == 1) mobStat[0] -= ran.nextInt(mobStat[0]) + playerLVL;
-            if (action == 4) finish();
-            playerHP -= mobStat[1];
-            action = -1;
-        }
-        if(playerHP > 0){
-            playerLVL++;
-            playerHP = 100 + playerLVL*2;
-        }
-        else Toast.makeText(this, "You Died", Toast.LENGTH_SHORT).show();
+    public void setPlayerHP(){
+        playerHP.setText("Player HP:" + playerHpVal);
     }
 
     public void attLis(){
-        action = 1;
+        Random ran = new Random();
+        int Dmg = ran.nextInt(10);
+        enemyHpVal -= Dmg;
+        setEnemyHP();
+        if(enemyHpVal <= 0){
+            finish();
+            //Return to map
+            //Gain items/xp
+        } else {
+            //enemy turn
+            playerHpVal -= ran.nextInt(10);
+        }
     }
-    public void runLis(){
-        action = 4;
-    }
-
-
 
 
 }

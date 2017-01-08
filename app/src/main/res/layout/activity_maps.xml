@@ -24,17 +24,23 @@
             android:layout_above="@+id/botRow">
 
             <Button
+                android:textColor="#fff"
                 android:text="char sheet"
+                android:background="@color/colorAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="12dp"
                 android:layout_weight="1"
                 android:textSize="11dp"
                 android:id="@+id/characterSheetB" />
 
             <Button
+                android:textColor="#fff"
                 android:text="shop"
+                android:background="@color/colorAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="12dp"
                 android:layout_weight="1"
                 android:textSize="11dp"
                 android:id="@+id/shopB" />
@@ -48,16 +54,22 @@
             android:layout_alignParentBottom="true">
 
             <Button
+                android:textColor="#fff"
                 android:text="wip"
+                android:background="@color/colorAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="12dp"
                 android:layout_weight="1"
                 android:textSize="11dp"
                 android:id="@+id/wip" />
 
             <Button
+                android:textColor="#fff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:layout_margin="12dp"
                 android:id="@+id/backB"
                 android:layout_weight="1"
                 android:layout_above="@+id/shopB"

@@ -181,6 +181,8 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
         }
+        mediaPlayer.stop();
+        mediaPlayer.release();
     }
 
     /**
@@ -265,10 +267,10 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
             mMarker.remove();
             Intent intent = new Intent(this, BattleActivity.class);
             startActivity(intent);
-
+            finish();
         }
-
     }
+
 }
 
 
