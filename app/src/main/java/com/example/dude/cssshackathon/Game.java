@@ -30,7 +30,7 @@ public class Game extends AppCompatActivity{
     public int dart;
     public int gold;
     public HashMap<String, int[]> mobMap = new HashMap<String, int[]>();
-    public int[] mob = new int[6];
+    public int[] mob = new int[7];
     public String mobName;
     //private static int numMob;
 public Game(){
@@ -205,7 +205,7 @@ public Game(){
     public void encounter() {
         Random generator = new Random();
         Object[] getmobs = mobMap.values().toArray();
-        Toast.makeText(this, getmobs.length, Toast.LENGTH_SHORT).show();
+//       Toast.makeText(this, getmobs.length, Toast.LENGTH_SHORT).show();
         String randomMob = (String) getmobs[generator.nextInt(getmobs.length)];
         mob = mobMap.get(randomMob);
         mobName = randomMob;
