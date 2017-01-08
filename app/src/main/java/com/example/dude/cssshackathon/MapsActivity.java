@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -51,6 +52,8 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     private LatLng latLng;
     private LatLng nearbyLatLng;
 
+    MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +73,10 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
                 .addOnConnectionFailedListener(this)
                 .addApi(AppIndex.API).build();
         mGoogleApiClient.connect();
+
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.come_and_find_me);
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);
     }
 
     @Override
@@ -135,7 +142,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         if(deviceMoved && mMarker == null){
             createRandomMapMarker();
         }
-        beginEncounter();
+        //beginEncounter();
 
         mMap.animateCamera(CameraUpdateFactory.newLatLng(latlng));
     }
@@ -255,7 +262,9 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         if(Math.abs(latLng.latitude - nearbyLatLng.latitude ) <= DISTANCE_REQUIRED_LAT
                 && Math.abs(latLng.longitude - nearbyLatLng.latitude) <= DISTANCE_REQUIRED_LNG){
             mMarker.remove();
-            EncounterActivity.game.encounter();
+            Intent intent = new Intent(this, BattleActivity.class);
+            startActivity(intent);
+
         }
 
     }

@@ -1,24 +1,40 @@
 package com.example.dude.cssshackathon;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.media.MediaPlayer;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
+    MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent svc=new Intent(this, BackgroundSoundService.class);
-        startService(svc); //OR stopService(svc);
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.all_of_us);
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);
     }
 
     public void startSecondActivity(View view){
         Intent intent = new Intent(this, activity_second.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mediaPlayer.stop();
+        mediaPlayer.release();
+
     }
 
 }

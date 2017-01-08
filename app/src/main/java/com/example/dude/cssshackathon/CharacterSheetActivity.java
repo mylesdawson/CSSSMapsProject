@@ -10,7 +10,7 @@ public class CharacterSheetActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_sheet);
-        Game game = EncounterActivity.game;
+        Game game = BattleActivity.game;
         characterSheet.setText("Name: " + game.name +
                                 "HP: " + game.hp + "|" + game.hpMax +
                                 "AP: " + game.ap + "|" + game.apMax +
