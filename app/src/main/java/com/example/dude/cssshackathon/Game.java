@@ -125,7 +125,7 @@ public Game(){
     public void loadMob(){
         FileInputStream in;
         try{
-            in = openFileInput("R.raw.mobs.txt");
+            in = openFileInput("R.raw.mobs_file.txt");
             StringBuilder builder = new StringBuilder();
             int ch;
             while((ch = in.read()) != -1){
@@ -144,7 +144,7 @@ public Game(){
                 mobMap.put(data[0], arr);
             }
         } catch(Exception e){
-
+            System.out.println("didn't load");
         }
     }
 
