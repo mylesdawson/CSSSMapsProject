@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Random;
 
 public class BattleActivity extends AppCompatActivity {
@@ -65,6 +68,7 @@ public class BattleActivity extends AppCompatActivity {
                     lvl++;
                     ammo += ran.nextInt(lvl);
                     hpPot += ran.nextInt(lvl);
+                    save();
                     Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                     startActivity(intent);
                     //Return to map
@@ -72,6 +76,10 @@ public class BattleActivity extends AppCompatActivity {
                 } else {
                     //enemy turn
                     playerHpVal -= ran.nextInt(50+lvl);
+                    if(playerHpVal <= 0) {
+                        Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });
@@ -89,6 +97,7 @@ public class BattleActivity extends AppCompatActivity {
                         lvl++;
                         ammo += ran.nextInt(lvl);
                         hpPot += ran.nextInt(lvl);
+                        save();
                         Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                         startActivity(intent);
                         //Return to map
@@ -112,6 +121,7 @@ public class BattleActivity extends AppCompatActivity {
         runBtn.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                save();
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                 startActivity(intent);
             }
@@ -152,5 +162,34 @@ public class BattleActivity extends AppCompatActivity {
         }
     }
 
+    private void save(){
+        FileOutputStream out;
+        try{
+            out = openFileOutput("save.txt", getApplicationContext().MODE_PRIVATE);
+            out.write(playerHpVal + '\n');
+            out.write(lvl + '\n');
+            out.write(ammo + '\n');
+            out.write(hpPot + '\n');
+        } catch (Exception e){
 
+        }
+    }
+    public void load(){
+        FileInputStream in;
+        try{
+            in = getApplicationContext().openFileInput("save.txt");
+            StringBuilder strb = new StringBuilder();
+            int ch;
+            while((ch = in.read()) != -1) {
+                strb.append((char) ch);
+            }
+            String[] data =  strb.toString().split("\\s+");
+            playerHpVal = Integer.parseInt(data[0]);
+            lvl = Integer.parseInt(data[1]);
+            ammo = Integer.parseInt(data[2]);
+            hpPot = Integer.parseInt(data[3]);
+        } catch(Exception e) {
+
+        }
+    }
 }

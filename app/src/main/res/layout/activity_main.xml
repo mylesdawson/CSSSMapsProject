@@ -23,4 +23,10 @@
         android:src="@mipmap/farengar_sprite"
         android:paddingTop="64dp" />
 
-    </LinearLayout>
+    <Button
+        android:text="Load Game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loadB" />
+
+</LinearLayout>
