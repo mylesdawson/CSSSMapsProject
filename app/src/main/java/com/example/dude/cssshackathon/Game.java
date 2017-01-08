@@ -2,6 +2,7 @@ package com.example.dude.cssshackathon;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import java.io.*;
@@ -13,6 +14,7 @@ import java.util.Random;
  */
 
 public class Game extends AppCompatActivity{
+    private String path = Environment.getExternalStorageDirectory().getPath() + "/saveLocal";
     public String name;
     public int hpMax;
     public int hp;
@@ -66,7 +68,7 @@ public Game(){
     public void save(){
         FileOutputStream out;
         try{
-            out = openFileOutput("saveFile.txt", this.MODE_PRIVATE);
+            out = openFileOutput(path+ "saveFile.txt", MODE_PRIVATE);
             out.write(name.getBytes());
             out.write('\n');
             out.write(hp + '\n');
@@ -94,7 +96,7 @@ public Game(){
     public void load(){
         FileInputStream in;
         try{
-            in = openFileInput("saveFile.txt");
+            in = getApplicationContext().openFileInput("saveFile.txt");
             StringBuilder builder = new StringBuilder();
             int ch;
             while((ch = in.read()) != -1){
@@ -123,7 +125,7 @@ public Game(){
     public void loadMob(){
         FileInputStream in;
         try{
-            in = openFileInput("@mob_res/mobs.txt");
+            in = openFileInput("@mipmap-hdpi/mobs.txt");
             StringBuilder builder = new StringBuilder();
             int ch;
             while((ch = in.read()) != -1){
@@ -148,8 +150,9 @@ public Game(){
 
     public void encounter() {
         Random generator = new Random();
-        Object[] mobs = mobMap.values().toArray();
-        String randomMob = (String) mobs[generator.nextInt(mobs.length)];
+        Object[] getmobs = mobMap.values().toArray();
+        Toast.makeText(this, getmobs.length, Toast.LENGTH_SHORT).show();
+        String randomMob = (String) getmobs[generator.nextInt(getmobs.length)];
         mob = mobMap.get(randomMob);
         mobName = randomMob;
         Intent encounterIntent = new Intent(this, EncounterActivity.class);
