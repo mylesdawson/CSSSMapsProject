@@ -135,7 +135,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         if(deviceMoved && mMarker == null){
             createRandomMapMarker();
         }
-        //beginEncounter();
+        beginEncounter();
 
         mMap.animateCamera(CameraUpdateFactory.newLatLng(latlng));
     }
