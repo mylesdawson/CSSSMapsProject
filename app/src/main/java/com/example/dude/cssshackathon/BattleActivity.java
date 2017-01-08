@@ -84,6 +84,7 @@ public class BattleActivity extends AppCompatActivity {
                     enemyHpVal -= Dmg;
                     setEnemyHP();
                     ammo--;
+                    abilitiesBtn.setText("AMMO: " + ammo);
                     if (enemyHpVal <= 0) {
                         lvl++;
                         ammo += ran.nextInt(lvl);
@@ -96,6 +97,25 @@ public class BattleActivity extends AppCompatActivity {
                 }
             }
         });
+
+        itemsBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if (hpPot > 0) {
+                    playerHpVal += ran.nextInt(lvl*50) + (int) (100+lvl*2)/3;
+                    hpPot--;
+                    itemsBtn.setText("Heal: " + hpPot);
+                }
+            }
+        });
+
+        runBtn.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                startActivity(intent);
+            }
+        }));
 
         setEnemyHP();
         setPlayerHP();
