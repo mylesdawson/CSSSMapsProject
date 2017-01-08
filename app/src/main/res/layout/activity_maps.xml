@@ -4,10 +4,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:context="com.example.dude.cssshackathon.MapsActivity" />
         <LinearLayout
             android:id="@+id/topRow"
             android:layout_width="match_parent"
@@ -17,20 +24,20 @@
             android:layout_above="@+id/botRow">
 
             <Button
-                android:text="character sheet"
+                android:text="char sheet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/characterSheetB"
-                android:onClick="attackSetText"/>
+                android:textSize="11dp"
+                android:id="@+id/characterSheetB" />
 
             <Button
                 android:text="shop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/shopB"
-                android:onClick="itemsSetText"/>
+                android:textSize="11dp"
+                android:id="@+id/shopB" />
 
         </LinearLayout>
 
@@ -45,8 +52,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/wip"
-                android:onClick="abilitiesSetText"/>
+                android:textSize="11dp"
+                android:id="@+id/wip" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -54,17 +61,12 @@
                 android:id="@+id/backB"
                 android:layout_weight="1"
                 android:layout_above="@+id/shopB"
-                android:text="back"
-                android:onClick="runSetText"/>
+                android:textSize="11dp"
+                android:text="back" />
 
         </LinearLayout>
 
     </RelativeLayout>
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:context="com.example.dude.cssshackathon.MapsActivity" />
+
 
 </LinearLayout>
