@@ -1,6 +1,7 @@
 package com.example.dude.cssshackathon;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import java.io.*;
@@ -12,21 +13,22 @@ import java.util.Random;
  */
 
 public class Game extends AppCompatActivity{
-    public static String name;
-    private int hpMax;
-    private int hp;
-    private int apMax;
-    private int ap;
-    private int xp;
-    private int lvl;
-    private int xpToNext;
+    public String name;
+    public int hpMax;
+    public int hp;
+    public int apMax;
+    public int ap;
+    public int xp;
+    public int lvl;
+    public int xpToNext;
     public String[] ability = new String[3];
-    private int hpPot;
-    private int apPot;
-    private int dart;
-    private int gold;
-    public static HashMap<String, int[]> mobMap = new HashMap<String, int[]>();
-    private static int numMob;
+    public int hpPot;
+    public int apPot;
+    public int dart;
+    public int gold;
+    public HashMap<String, int[]> mobMap = new HashMap<String, int[]>();
+    public int[] mob = new int[6];
+    //private static int numMob;
 public Game(){
 
 }
@@ -143,15 +145,21 @@ public Game(){
         }
     }
 
-    public int encounter() {
+    public void encounter() {
         Random generator = new Random();
         Object[] mobs = mobMap.values().toArray();
         String randomMob = (String) mobs[generator.nextInt(mobs.length)];
-        int[]  mob = mobMap.get(randomMob);
+        mob = mobMap.get(randomMob);
+        Intent encounterIntent = new Intent(this, EncounterActivity.class);
+        startActivity(encounterIntent);
+    }
+    /*    //EncounterActivity.setInfo(randomMob, mob);
         while(mob[0] > 0 && hp > 0) {
-            EncounterActivity.getAction();
+            //EncounterActivity.getAction();
             combatAction(mob);
+            //EncounterActivity.updateInfo(mob);
             if(mob[0] > 0) hp -= mob[1];
+           // EncounterActivity.updateInfo();
         }
         if(hp > 0){
             xp += mob[2];
@@ -160,9 +168,7 @@ public Game(){
             apPot += mob[5];
             dart += mob[6];
             lvlUp();
-            return 0;
         }
-        return 1;
     }
     private void combatAction(int[] mob){
         boolean resolved = false;
@@ -190,9 +196,18 @@ public Game(){
                 resolved = true;
                 continue;
             }
-            if(action.equals("hp potion")) hp += hpMax;
-            if(action.equals("ap potion")) ap += apMax;
-            if(action.equals("dart")) mob[0] -= 10;
+            if(action.equals("hp potion") && hpPot > 0){
+                hp += hpMax;
+                hpPot--;
+            }
+            if(action.equals("ap potion") && apPot > 0){
+                ap += apMax;
+                apPot--;
+            }
+            if(action.equals("dart") && dart > 0){
+                mob[0] -= 5;
+                dart--;
+            }
             //if(action.equals("back")) Page3.Back();
         }
     }
@@ -221,4 +236,5 @@ public Game(){
         }
         Toast.makeText(this, "Not enough AP, you have wasted a turn.", Toast.LENGTH_SHORT).show();
     }
+    */
 }
