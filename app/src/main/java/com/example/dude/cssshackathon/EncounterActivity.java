@@ -32,6 +32,7 @@ public class EncounterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encounter);
+        Toast.makeText(this, "battle has begun!", Toast.LENGTH_SHORT).show();
      //   game.encounter();
         attack = (Button)findViewById(R.id.attack);
     //    abilities = (Button)findViewById(R.id.abilities);
@@ -104,7 +105,7 @@ public class EncounterActivity extends AppCompatActivity {
         mobInfo.setText( mobName+ "\nhp: " + mob[0] +"|" + mobBaseHP + "\nattack: " + mob[1]);
         playerInfo.setText("you" + "\nhp: " + hp);// + "|" + hpMax + "\nap: " + ap + "|" + apMax);
         int id = getResources().getIdentifier("@mipmap-hdpi/" + mobName, null, null);
-        mobImg.setImageResource(id);
+        //mobImg.setImageResource(id);
         encounter();
     }
 

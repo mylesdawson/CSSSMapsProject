@@ -28,6 +28,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -110,7 +111,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         // on when connected with GoogleApiClient
-        Toast.makeText(this, "Connection Success!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Connection Success!", Toast.LENGTH_SHORT).show();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -142,7 +143,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         if(deviceMoved && mMarker == null){
             createRandomMapMarker();
         }
-        //beginEncounter();
+        beginEncounter();
 
         mMap.animateCamera(CameraUpdateFactory.newLatLng(latlng));
     }
