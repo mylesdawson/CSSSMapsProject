@@ -125,7 +125,7 @@ public Game(){
     public void loadMob(){
         FileInputStream in;
         try{
-            in = openFileInput("@mipmap-hdpi/mobs.txt");
+            in = openFileInput("R.raw.mobs.txt");
             StringBuilder builder = new StringBuilder();
             int ch;
             while((ch = in.read()) != -1){
