@@ -165,10 +165,10 @@ public Game(){
     }
     private void combatAction(int[] mob){
         boolean resolved = false;
-        EncounterFrame.latestAction = "";
-        String action = EncounterFrame.latestAction;
+        EncounterActivity.latestAction = "";
+        String action = EncounterActivity.latestAction;
         while(!resolved) {
-            action = EncounterFrame.latestAction;
+            action = EncounterActivity.latestAction;
             if (action.equals("attack")) {
                 mob[0] -= 10;
                 resolved = true;
