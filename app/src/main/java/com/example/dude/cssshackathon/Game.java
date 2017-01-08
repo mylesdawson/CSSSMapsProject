@@ -149,6 +149,7 @@ public Game(){
         String randomMob = (String) mobs[generator.nextInt(mobs.length)];
         int[]  mob = mobMap.get(randomMob);
         while(mob[0] > 0 && hp > 0) {
+            EncounterActivity.getAction();
             combatAction(mob);
             if(mob[0] > 0) hp -= mob[1];
         }
