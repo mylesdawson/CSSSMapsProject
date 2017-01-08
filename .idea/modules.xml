@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/CSSSHackathon.iml" filepath="$PROJECT_DIR$/CSSSHackathon.iml" />
       <module fileurl="file://$PROJECT_DIR$/CSSSMapsProject.iml" filepath="$PROJECT_DIR$/CSSSMapsProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

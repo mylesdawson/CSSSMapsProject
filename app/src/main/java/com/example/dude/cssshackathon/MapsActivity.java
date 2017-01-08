@@ -39,12 +39,12 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     public static final String TAG = MapsActivity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
-    private static double MAX_DISTANCE = .0005;
-    private static double MAX_DISTANCE_NEGATIVE = -.0005;
+    private static double MAX_DISTANCE = .0001;
+    private static double MAX_DISTANCE_NEGATIVE = -.001;
     private boolean deviceMoved = false;
 
-    private static double DISTANCE_REQUIRED_LAT = 10000;
-    private static double DISTANCE_REQUIRED_LNG = 10000;
+    private static double DISTANCE_REQUIRED_LAT = .000050000;
+    private static double DISTANCE_REQUIRED_LNG = .000050000;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -136,16 +136,16 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         Log.d(TAG, location.toString());
         double currentLatitude = location.getLatitude();
         double currentLongitude = location.getLongitude();
-        LatLng latlng = new LatLng(currentLatitude, currentLongitude);
+        LatLng aLatlgn= new LatLng(currentLatitude, currentLongitude);
 
-        latLng = latlng;
+        latLng = aLatlgn;
 
-        if(deviceMoved && mMarker == null){
+        if(mMarker == null && deviceMoved){
             createRandomMapMarker();
         }
         beginEncounter();
 
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(latlng));
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
     }
 
 
@@ -225,20 +225,20 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     //        after reaching old marker. delete current marker and make new one
       public void createRandomMapMarker(){
 
-        if(mMarker == null){
+          if(mMarker == null){
+              Toast.makeText(this, "gets here", Toast.LENGTH_SHORT).show();
+              mMarker = mMap.addMarker(new MarkerOptions()
+                      .position(findRandomNearbyLocation(latLng))
+                      .title("Fight!"));
+              mMarker.setTag(0);
+          }else{
+              mMarker.remove();
+              mMarker = mMap.addMarker(new MarkerOptions()
+                      .position(findRandomNearbyLocation(latLng))
+                      .title("Fight!"));
+              mMarker.setTag(0);
+          }
 
-            mMarker = mMap.addMarker(new MarkerOptions()
-                    .position(findRandomNearbyLocation(latLng))
-                    .title("Fight!"));
-                    mMarker.setTag(0);
-        } else {
-            // map marker exists
-            mMarker.remove();
-            mMarker = mMap.addMarker(new MarkerOptions()
-                    .position(findRandomNearbyLocation(latLng))
-                    .title("Fight!"));
-            mMarker.setTag(0);
-        }
       }
 
 
@@ -246,29 +246,29 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         double currLatitude = latLgn.latitude;
         double currLongitude = latLgn.longitude;
 
-        double randomLatLocation = Math.random() * MAX_DISTANCE + MAX_DISTANCE_NEGATIVE;
-        double randomLngLocation = Math.random() * MAX_DISTANCE + MAX_DISTANCE_NEGATIVE;
-        Log.i("nice", "randomLatLocation is: " + randomLatLocation);
-        Log.i("nice", "randomLntLocation is: " + randomLatLocation);
+        double randomLatLocation = (Math.random() - .5)*2* MAX_DISTANCE;
+        double randomLngLocation = (Math.random() - .5)*2* MAX_DISTANCE;
 
         double markerLatitude = currLatitude + randomLatLocation;
         double markerLongitude = currLongitude + randomLngLocation;
 
-        LatLng latlng = new LatLng(markerLatitude, markerLongitude);
 
-        nearbyLatLng = latlng;
+        LatLng latlgn = new LatLng(markerLatitude, markerLongitude);
+        nearbyLatLng = latlgn;
         return nearbyLatLng;
     }
 
     public void beginEncounter(){
-
-        if(Math.abs(latLng.latitude - nearbyLatLng.latitude ) <= DISTANCE_REQUIRED_LAT
-                && Math.abs(latLng.longitude - nearbyLatLng.latitude) <= DISTANCE_REQUIRED_LNG){
-            mMarker.remove();
+        double latDifference = Math.abs(latLng.latitude - nearbyLatLng.latitude);
+        double lngDifference = Math.abs(latLng.longitude - nearbyLatLng.longitude);
+        //Toast.makeText(this, "latDifference is: " + latDifference + "lgnDifference is: " + lngDifference + "\n", Toast.LENGTH_LONG).show();
+        if( latDifference <= DISTANCE_REQUIRED_LAT
+                && lngDifference <= DISTANCE_REQUIRED_LNG){
             Intent intent = new Intent(this, BattleActivity.class);
             startActivity(intent);
             finish();
         }
+
     }
 
 }
