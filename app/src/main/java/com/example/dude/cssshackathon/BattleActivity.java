@@ -177,7 +177,7 @@ public class BattleActivity extends AppCompatActivity {
 
         }
     }
-    public void load(){
+    public int load(){
         FileInputStream in;
         String path = Environment.getExternalStorageDirectory().getAbsolutePath();
         try{
@@ -193,8 +193,9 @@ public class BattleActivity extends AppCompatActivity {
             ammo = Integer.parseInt(data[2]);
             hpPot = Integer.parseInt(data[3]);
             Toast.makeText(this, "Saved Game Loaded", Toast.LENGTH_SHORT).show();
+            return 0;
         } catch(Exception e) {
-
+            return 1;
         }
     }
 }
