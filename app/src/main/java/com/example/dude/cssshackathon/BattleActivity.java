@@ -35,6 +35,8 @@ public class BattleActivity extends AppCompatActivity {
     private Random ran = new Random();
 
     MediaPlayer mediaPlayer;
+    MediaPlayer atkPlayer;
+    MediaPlayer deathPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,10 @@ public class BattleActivity extends AppCompatActivity {
                     lvl++;
                     ammo += ran.nextInt(lvl);
                     hpPot += ran.nextInt(lvl);
+
+                    atkPlayer = MediaPlayer.create(getApplicationContext(), R.raw.explosion);
+                    atkPlayer.start();
+
                     save();
                     Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                     startActivity(intent);

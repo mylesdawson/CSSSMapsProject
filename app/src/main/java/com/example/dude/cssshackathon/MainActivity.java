@@ -23,14 +23,7 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.all_of_us);
         mediaPlayer.start();
         mediaPlayer.setLooping(true);
-        Button loadB = (Button)findViewById(R.id.loadB);
-        loadB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BattleActivity tmp = new BattleActivity();
-                tmp.load();
-            }
-        });
+
     }
 
     //skipping second activity for now
@@ -44,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         mediaPlayer.stop();
         mediaPlayer.release();
-
     }
 
 
