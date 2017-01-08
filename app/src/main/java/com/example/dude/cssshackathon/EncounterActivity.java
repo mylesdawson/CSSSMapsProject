@@ -2,6 +2,7 @@ package com.example.dude.cssshackathon;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -107,8 +108,9 @@ public class EncounterActivity extends AppCompatActivity {
         encounter();
     }
 
-    public void attackSetText(){
+    public void attackSetText(View v){
         latestAction = attack.getText().toString();
+
     }
   /*  public void abilitiesSetText(){
         if(abilities.getText().toString().equals("abilities")){
@@ -139,15 +141,15 @@ public class EncounterActivity extends AppCompatActivity {
         run.setText("run");
     }
     */
-    public void runSetText(){
-        if(items.getText().toString().equals("back")){
+    public void runSetText(View v){
+        /*if(items.getText().toString().equals("back")){
             latestAction = "back";
             attack.setText("attack");
             abilities.setText("abilities");
             items.setText("items");
             run.setText("run");
             return;
-        }
+        }*/
         finish();
     }
 
