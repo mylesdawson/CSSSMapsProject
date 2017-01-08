@@ -2,6 +2,7 @@ package com.example.dude.cssshackathon;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -164,20 +165,23 @@ public class BattleActivity extends AppCompatActivity {
 
     private void save(){
         FileOutputStream out;
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
         try{
-            out = openFileOutput("save.txt", getApplicationContext().MODE_PRIVATE);
+            out = openFileOutput(path + "save.txt", getApplicationContext().MODE_PRIVATE);
             out.write(playerHpVal + '\n');
             out.write(lvl + '\n');
             out.write(ammo + '\n');
             out.write(hpPot + '\n');
+            Toast.makeText(this, "Data Saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e){
 
         }
     }
     public void load(){
         FileInputStream in;
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
         try{
-            in = getApplicationContext().openFileInput("save.txt");
+            in = getApplicationContext().openFileInput(path + "save.txt");
             StringBuilder strb = new StringBuilder();
             int ch;
             while((ch = in.read()) != -1) {
@@ -188,6 +192,7 @@ public class BattleActivity extends AppCompatActivity {
             lvl = Integer.parseInt(data[1]);
             ammo = Integer.parseInt(data[2]);
             hpPot = Integer.parseInt(data[3]);
+            Toast.makeText(this, "Saved Game Loaded", Toast.LENGTH_SHORT).show();
         } catch(Exception e) {
 
         }
