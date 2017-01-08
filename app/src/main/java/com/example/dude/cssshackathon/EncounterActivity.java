@@ -14,7 +14,7 @@ import static com.example.dude.cssshackathon.activity_second.game;
 
 public class EncounterActivity extends AppCompatActivity {
     public String latestAction;
-    public static String mobName;
+    //public static String mobName;
     private Button attack = (Button)findViewById(R.id.attack);
     private Button abilities = (Button)findViewById(R.id.abilities);
     private Button items = (Button)findViewById(R.id.items);
@@ -28,9 +28,11 @@ public class EncounterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encounter);
-        mobInfo.setText(game.mobName + "\nhp: " + game.mob[0] + "\nattack: " + game.mob[1]);
+        int mobBaseHP = game.mob[0];
+        mobInfo.setText(game.mobName + "\nhp: " + game.mob[0] +"|" + mobBaseHP + "\nattack: " + game.mob[1]);
         playerInfo.setText(game.name + "\nhp: " + game.hp + "|" + game.hpMax + "\nap: " + game.ap + "|" + game.apMax);
-
+        int id = getResources().getIdentifier("@mipmap-hdpi/" + game.mobName, null, null);
+        mobImg.setImageResource(id);
         encounter();
     }
 
@@ -96,7 +98,7 @@ public class EncounterActivity extends AppCompatActivity {
             game.hpPot += game.mob[4];
             game.apPot += game.mob[5];
             game.dart += game.mob[6];
-            Toast.makeText(this, "You rekt that " + mobName + "!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You rekt that " + game.mobName + "!", Toast.LENGTH_SHORT).show();
             game.lvlUp();
             game.save();
             finish();
@@ -164,9 +166,8 @@ public class EncounterActivity extends AppCompatActivity {
         Toast.makeText(this, "Not enough AP, you have wasted a turn.", Toast.LENGTH_SHORT).show();
     }
 
-    private void setup(){
-
+    private void update(){
+        mobInfo.setText(game.mobName + "\nhp: " + game.mob[0] + "\nattack: " + game.mob[1]);
+        playerInfo.setText(game.name + "\nhp: " + game.hp + "|" + game.hpMax + "\nap: " + game.ap + "|" + game.apMax);
     }
-
-
 }
