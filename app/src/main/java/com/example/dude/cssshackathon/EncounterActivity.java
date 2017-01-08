@@ -2,22 +2,17 @@ package com.example.dude.cssshackathon;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Random;
-
-import static com.example.dude.cssshackathon.activity_second.game;
 
 public class EncounterActivity extends AppCompatActivity {
     public String latestAction;
     //public static String mobName;
     private Button attack = (Button)findViewById(R.id.attack);
     private Button abilities = (Button)findViewById(R.id.abilities);
-    private Button items = (Button)findViewById(R.id.items);
+    private Button items = (Button)findViewById(R.id.shopB);
     private Button run = (Button)findViewById(R.id.run);
     private ImageView mobImg = (ImageView)findViewById(R.id.mobImg);
     private ImageView playerImg = (ImageView)findViewById(R.id.playerImg);

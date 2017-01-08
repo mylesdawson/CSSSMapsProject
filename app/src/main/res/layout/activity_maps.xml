@@ -4,11 +4,67 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:id="@+id/topRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:layout_above="@+id/botRow">
+
+            <Button
+                android:text="character sheet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/characterSheetB"
+                android:onClick="attackSetText"/>
+
+            <Button
+                android:text="shop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/shopB"
+                android:onClick="itemsSetText"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/botRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:text="wip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/wip"
+                android:onClick="abilitiesSetText"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/backB"
+                android:layout_weight="1"
+                android:layout_above="@+id/shopB"
+                android:text="back"
+                android:onClick="runSetText"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:context="com.example.dude.cssshackathon.MapsActivity" />
+
 </LinearLayout>
