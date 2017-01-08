@@ -27,6 +27,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
 public class MapsActivity extends AppCompatActivity implements LocationListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -37,6 +39,8 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
+    private Marker mMarker;
+    private LatLng latLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +68,6 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         mMap = googleMap;
         mMap.setMinZoomPreference(18);
         mMap.setMaxZoomPreference(18);
-
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -115,6 +118,8 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         double currentLongitude = location.getLongitude();
         LatLng latlng = new LatLng(currentLatitude, currentLongitude);
 
+        latLng = latlng;
+
         mMap.animateCamera(CameraUpdateFactory.newLatLng(latlng));
     }
 
@@ -153,7 +158,6 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         }
     }
 
-
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -189,6 +193,25 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         AppIndex.AppIndexApi.end(mGoogleApiClient, getIndexApiAction());
         mGoogleApiClient.disconnect();
     }
+
+    // Cases: onstart: create a map marker
+    //        after reaching old marker. delete current marker and make new one
+/*    public void createRandomMapMarker(){
+
+        if(mMarker == null){
+
+            mMarker = mMap.addMarker(new MarkerOptions()
+                    .position()
+                    .title("Fight!");
+            mMarker.setTag(0);
+        }
+        }
+    }*/
+
+/*    public LatLng findRandomNearbyLocation() {
+
+
+    }*/
 }
 
 

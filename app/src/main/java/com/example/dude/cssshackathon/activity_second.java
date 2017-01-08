@@ -9,14 +9,12 @@ import android.widget.Button;
 
 public class activity_second extends AppCompatActivity {
 
-    public Button btn;
     public static Game game = new Game("Hello.");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-
-        btn = (Button) findViewById(R.id.newGameButton);
 
     }
 
