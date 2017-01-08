@@ -255,7 +255,9 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         if(Math.abs(latLng.latitude - nearbyLatLng.latitude ) <= DISTANCE_REQUIRED_LAT
                 && Math.abs(latLng.longitude - nearbyLatLng.latitude) <= DISTANCE_REQUIRED_LNG){
             mMarker.remove();
-            activity_second.game.encounter();
+            Intent intent = new Intent(this, BattleActivity.class);
+            startActivity(intent);
+
         }
 
     }

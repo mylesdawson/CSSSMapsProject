@@ -18,7 +18,7 @@ public class EncounterActivity extends AppCompatActivity {
     private ImageView playerImg = (ImageView)findViewById(R.id.playerImg);
     private TextView mobInfo = (TextView)findViewById(R.id.mobInfo);
     private TextView playerInfo = (TextView)findViewById(R.id.playerInfo);
-    Game game = activity_second.game;
+    Game game = BattleActivity.game;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

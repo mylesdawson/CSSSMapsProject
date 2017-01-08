@@ -9,8 +9,6 @@ import android.widget.Button;
 
 public class activity_second extends AppCompatActivity {
 
-    public static Game game = new Game("Hello.");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
