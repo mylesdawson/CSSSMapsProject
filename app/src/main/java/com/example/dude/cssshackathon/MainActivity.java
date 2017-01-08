@@ -24,8 +24,9 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer.setLooping(true);
     }
 
+    //skipping second activity for now
     public void startSecondActivity(View view){
-        Intent intent = new Intent(this, activity_second.class);
+        Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
 
