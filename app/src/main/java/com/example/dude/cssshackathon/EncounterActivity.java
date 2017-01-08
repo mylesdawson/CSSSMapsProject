@@ -94,9 +94,10 @@ public class EncounterActivity extends AppCompatActivity {
         Random generator = new Random();
         Object[] getmobs = mobMap.values().toArray();
 //       Toast.makeText(this, getmobs.length, Toast.LENGTH_SHORT).show();
-        String randomMob = (String) getmobs[generator.nextInt(getmobs.length)];
-        mob = mobMap.get(randomMob);
-        mobName = randomMob;
+        int ran = generator.nextInt(getmobs.length);
+        int[] randomMob = (int[]) getmobs[ran];
+        mobName = "wraith";
+        mob = randomMob;
 
        int mobBaseHP = mob[0];
         mobInfo.setText( mobName+ "\nhp: " + mob[0] +"|" + mobBaseHP + "\nattack: " + mob[1]);
