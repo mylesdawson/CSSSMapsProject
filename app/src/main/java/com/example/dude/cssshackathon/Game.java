@@ -98,29 +98,25 @@ public class Game extends AppCompatActivity{
         String action = Page3.latestAction;
         while(!resolved){
             action = Page3.latestAction;
-            if(action.equals("Attack")) mob[0] -= 20; resolved = true; break;
-            if(action.equals(ability[0])) ability(0); resolved = true; break;
-            if(action.equals(ability[1])) ability(1); resolved = true; break;
-            if(action.equals(ability[1])) ability(2); resolved = true; break;
-            if(action.equals("HP Potion")) hp += hpMax;
-            if(action.equals("AP Potion")) ap += apMax;
-            if(action.equals("Dart")) mob[0] -= 10;
-            if(action.equals("Back")) Page3.Back();
+            if(action.equals("attack")) mob[0] -= 10; resolved = true; continue;
+            if(action.equals(ability[0])) skill(0, mob); resolved = true; continue;
+            if(action.equals(ability[1])) skill(1, mob); resolved = true; continue
+            if(action.equals(ability[1])) skill(2, mob); resolved = true; continue;
+            if(action.equals("hp potion")) hp += hpMax;
+            if(action.equals("ap potion")) ap += apMax;
+            if(action.equals("dart")) mob[0] -= 10;
+            //if(action.equals("back")) Page3.Back();
         }
     }
     private void mapAction(){
-        String action = MapsActivity.latestAction
-        if(action.equals("Attack")) mob[0] -= 20;
-        if(action.equals(ability[0])) ability(0);
-        if(action.equals(ability[1])) ability(1);
-        if(action.equals(ability[1])) ability(2);
-        if(action.equals("HP Potion")) hp += hpMax;
-        if(action.equals("AP Potion")) ap += apMax;
-        if(action.equals("Dart")) mob[0] -= 10;
+
     }
 
-    private void ability(int num){
-        string ability
-        if
+    private void skill(int num, int[] mob){
+        String use = ability[num];
+        if(use.equals("strong attack: 10") && ap >= 10) mob[0] -= 15; ap -= 10; return;
+        if(use.equals("life steal: 20") && ap >= 20) mob[0] -= 5; hp+= 25 ap -= 20; return;
+        if(use.equals("double strike: 50") && ap >= 50) ap -= 50; combatAction(mob); mob[0] -= 10;return;
+        Toast.makeText(this, "Not enough AP, you have wasted a turn.", Toast.LENGTH_SHORT).show();
     }
 }

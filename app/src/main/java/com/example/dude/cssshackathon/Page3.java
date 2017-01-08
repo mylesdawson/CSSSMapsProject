@@ -7,8 +7,4 @@ package com.example.dude.cssshackathon;
 public class Page3 {
     public static String latestAction;
 
-
-    public void printStarter(View view) {
-        ((TextView)findViewById(R.id.fullscreen_content)).setText("Your Text");
-    }
 }
