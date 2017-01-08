@@ -25,7 +25,7 @@ public class EncounterActivity extends AppCompatActivity {
     TextView mobInfo;
     TextView playerInfo;
     int att;
-    int hp;
+    int hp = 100;
     public HashMap<String, int[]> mobMap = new HashMap<String, int[]>();
     //ame game;
     @Override
