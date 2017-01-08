@@ -79,17 +79,20 @@ public class BattleActivity extends AppCompatActivity {
         abilitiesBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                int Dmg = ran.nextInt(50+lvl*2) + lvl;
-                enemyHpVal -= Dmg;
-                setEnemyHP();
-                if(enemyHpVal <= 0) {
-                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                    startActivity(intent);
-                    lvl++;
-                    ammo += ran.nextInt(lvl);
-                    hpPot += ran.nextInt(lvl);
-                    //Return to map
-                    //Gain items/xp
+                if(ammo > 0) {
+                    int Dmg = ran.nextInt(50 + lvl * 2) + lvl;
+                    enemyHpVal -= Dmg;
+                    setEnemyHP();
+                    ammo--;
+                    if (enemyHpVal <= 0) {
+                        Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                        startActivity(intent);
+                        lvl++;
+                        ammo += ran.nextInt(lvl);
+                        hpPot += ran.nextInt(lvl);
+                        //Return to map
+                        //Gain items/xp
+                    }
                 }
             }
         });
