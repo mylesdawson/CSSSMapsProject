@@ -31,7 +31,7 @@ public class EncounterActivity extends AppCompatActivity {
 
     private int[] randomizeMob(){
         Random ran = new Random();
-        int[] ret;
+        int[] ret = new int[2];
         ret[0] = ran.nextInt(playerLVL) + playerLVL;
         ret[1] = ran.nextInt(playerLVL) + playerLVL;
         return ret;
