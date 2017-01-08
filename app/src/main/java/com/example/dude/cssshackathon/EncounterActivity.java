@@ -19,8 +19,7 @@ public class EncounterActivity extends AppCompatActivity {
     int action = -1;
     Button attack;
     Button run;
-    HashMap<String, int[]> mobs = new HashMap();
-    HashMap<Integer, String> numMobs = new HashMap();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +29,17 @@ public class EncounterActivity extends AppCompatActivity {
         battle();
     }
 
+    private int[] randomizeMob(){
+        Random ran = new Random();
+        int[] ret;
+        ret[0] = ran.nextInt(playerLVL) + playerLVL;
+        ret[1] = ran.nextInt(playerLVL) + playerLVL;
+        return ret;
+    }
+
     private void battle(){
         Random ran = new Random();
-        String randomMob = numMobs.get(ran.nextInt(numMobs.size()));
-        int[] mobStat = mobs.get(randomMob);
+        int[] mobStat = randomizeMob();
         while(mobStat[0] > 0 && playerHP > 0) {
             while (action == -1);
             if (action == 1) mobStat[0] -= ran.nextInt(mobStat[0]) + playerLVL;
@@ -43,6 +49,7 @@ public class EncounterActivity extends AppCompatActivity {
         }
         if(playerHP > 0){
             playerLVL++;
+            playerHP = 100 + playerLVL*2;
         }
         else Toast.makeText(this, "You Died", Toast.LENGTH_SHORT).show();
     }
