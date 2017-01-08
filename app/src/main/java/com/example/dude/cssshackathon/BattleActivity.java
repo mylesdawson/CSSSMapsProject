@@ -72,16 +72,18 @@ public class BattleActivity extends AppCompatActivity {
                     save();
                     Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                     startActivity(intent);
+                    return;
                     //Return to map
                     //Gain items/xp
-                } else {
+                }
                     //enemy turn
                     playerHpVal -= ran.nextInt(50+lvl);
+
                     if(playerHpVal <= 0) {
                         Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                         startActivity(intent);
                     }
-                }
+
             }
         });
 
@@ -112,7 +114,7 @@ public class BattleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (hpPot > 0) {
-                    playerHpVal += ran.nextInt(lvl*50) + (int) (100+lvl*2)/3;
+                    playerHpVal += ran.nextInt(lvl) + (int) (100+lvl*2)/3;
                     hpPot--;
                     itemsBtn.setText("Heal: " + hpPot);
                 }
