@@ -23,8 +23,12 @@ public class BattleActivity extends AppCompatActivity {
     Button abilitiesBtn;
     Button runBtn;
 
-    public int enemyHpVal = 10;
-    public int playerHpVal = 10;
+    private int enemyHpVal;
+    private static int playerHpVal = 100;
+    private static int lvl = 1;
+    private static int ammo = 5;
+    private static int hpPot = 5;
+    private Random ran = new Random();
 
     MediaPlayer mediaPlayer;
 
@@ -49,21 +53,43 @@ public class BattleActivity extends AppCompatActivity {
         playerImg.setImageResource(R.mipmap.farengar_sprite);
         enemyImg.setImageResource(R.mipmap.wraith);
 
+        enemyHpVal = ran.nextInt(100 + lvl) + lvl;
+
         attackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Random ran = new Random();
-                int Dmg = ran.nextInt(10);
+                int Dmg = ran.nextInt(50+lvl*2) + lvl;
                 enemyHpVal -= Dmg;
                 setEnemyHP();
                 if(enemyHpVal <= 0){
                     Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                     startActivity(intent);
+                    lvl++;
+                    ammo += ran.nextInt(lvl);
+                    hpPot += ran.nextInt(lvl);
                     //Return to map
                     //Gain items/xp
                 } else {
                     //enemy turn
-                    playerHpVal -= ran.nextInt(10);
+                    playerHpVal -= ran.nextInt(50+lvl);
+                }
+            }
+        });
+
+        abilitiesBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                int Dmg = ran.nextInt(50+lvl*2) + lvl;
+                enemyHpVal -= Dmg;
+                setEnemyHP();
+                if(enemyHpVal <= 0) {
+                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                    startActivity(intent);
+                    lvl++;
+                    ammo += ran.nextInt(lvl);
+                    hpPot += ran.nextInt(lvl);
+                    //Return to map
+                    //Gain items/xp
                 }
             }
         });
