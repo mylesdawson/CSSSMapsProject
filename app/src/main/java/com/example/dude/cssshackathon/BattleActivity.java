@@ -62,11 +62,11 @@ public class BattleActivity extends AppCompatActivity {
                 enemyHpVal -= Dmg;
                 setEnemyHP();
                 if(enemyHpVal <= 0){
-                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                    startActivity(intent);
                     lvl++;
                     ammo += ran.nextInt(lvl);
                     hpPot += ran.nextInt(lvl);
+                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                    startActivity(intent);
                     //Return to map
                     //Gain items/xp
                 } else {
@@ -85,11 +85,11 @@ public class BattleActivity extends AppCompatActivity {
                     setEnemyHP();
                     ammo--;
                     if (enemyHpVal <= 0) {
-                        Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                        startActivity(intent);
                         lvl++;
                         ammo += ran.nextInt(lvl);
                         hpPot += ran.nextInt(lvl);
+                        Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                        startActivity(intent);
                         //Return to map
                         //Gain items/xp
                     }
