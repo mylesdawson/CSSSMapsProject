@@ -1,6 +1,7 @@
 package com.example.dude.cssshackathon;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -36,11 +37,19 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     public static final String TAG = MapsActivity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
+    private static double MAX_DISTANCE = .0005;
+    private static double MAX_DISTANCE_NEGATIVE = -.0005;
+    private boolean deviceMoved = false;
+
+    private static double DISTANCE_REQUIRED_LAT = 10000;
+    private static double DISTANCE_REQUIRED_LNG = 10000;
+
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-    private Marker mMarker;
+    public Marker mMarker;
     private LatLng latLng;
+    private LatLng nearbyLatLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +77,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         mMap = googleMap;
         mMap.setMinZoomPreference(18);
         mMap.setMaxZoomPreference(18);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -80,11 +90,13 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
             return;
         }
         mMap.setMyLocationEnabled(true);
+
     }
 
 
     @Override
     public void onLocationChanged(Location location) {
+        deviceMoved = true;
         handleNewLocation(location);
     }
 
@@ -119,6 +131,11 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         LatLng latlng = new LatLng(currentLatitude, currentLongitude);
 
         latLng = latlng;
+
+        if(deviceMoved && mMarker == null){
+            createRandomMapMarker();
+        }
+        //beginEncounter();
 
         mMap.animateCamera(CameraUpdateFactory.newLatLng(latlng));
     }
@@ -196,22 +213,52 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
 
     // Cases: onstart: create a map marker
     //        after reaching old marker. delete current marker and make new one
-/*    public void createRandomMapMarker(){
+      public void createRandomMapMarker(){
 
         if(mMarker == null){
 
             mMarker = mMap.addMarker(new MarkerOptions()
-                    .position()
-                    .title("Fight!");
+                    .position(findRandomNearbyLocation(latLng))
+                    .title("Fight!"));
+                    mMarker.setTag(0);
+        } else {
+            // map marker exists
+            mMarker.remove();
+            mMarker = mMap.addMarker(new MarkerOptions()
+                    .position(findRandomNearbyLocation(latLng))
+                    .title("Fight!"));
             mMarker.setTag(0);
         }
+      }
+
+
+    public LatLng findRandomNearbyLocation(LatLng latLgn) {
+        double currLatitude = latLgn.latitude;
+        double currLongitude = latLgn.longitude;
+
+        double randomLatLocation = Math.random() * MAX_DISTANCE + MAX_DISTANCE_NEGATIVE;
+        double randomLngLocation = Math.random() * MAX_DISTANCE + MAX_DISTANCE_NEGATIVE;
+        Log.i("nice", "randomLatLocation is: " + randomLatLocation);
+        Log.i("nice", "randomLntLocation is: " + randomLatLocation);
+
+        double markerLatitude = currLatitude + randomLatLocation;
+        double markerLongitude = currLongitude + randomLngLocation;
+
+        LatLng latlng = new LatLng(markerLatitude, markerLongitude);
+
+        nearbyLatLng = latlng;
+        return nearbyLatLng;
+    }
+
+    public void beginEncounter(){
+
+        if(Math.abs(latLng.latitude - nearbyLatLng.latitude ) <= DISTANCE_REQUIRED_LAT
+                && Math.abs(latLng.longitude - nearbyLatLng.latitude) <= DISTANCE_REQUIRED_LNG){
+            mMarker.remove();
+            activity_second.game.encounter();
         }
-    }*/
 
-/*    public LatLng findRandomNearbyLocation() {
-
-
-    }*/
+    }
 }
 
 
