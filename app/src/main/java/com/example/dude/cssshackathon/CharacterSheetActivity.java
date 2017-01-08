@@ -20,4 +20,8 @@ public class CharacterSheetActivity extends AppCompatActivity {
                                 "AP Potions: " + game.apPot +
                                 "Darts: " + game.dart);
     }
+
+    public void back(){
+        finish();
+    }
 }

@@ -26,7 +26,7 @@ public class EncounterActivity extends AppCompatActivity {
         int mobBaseHP = game.mob[0];
         mobInfo.setText(game.mobName + "\nhp: " + game.mob[0] +"|" + mobBaseHP + "\nattack: " + game.mob[1]);
         playerInfo.setText(game.name + "\nhp: " + game.hp + "|" + game.hpMax + "\nap: " + game.ap + "|" + game.apMax);
-        int id = getResources().getIdentifier("@mipmap-hdpi/" + game.mobName, null, null);
+        int id = getResources().getIdentifier("@mobs_res/" + game.mobName, null, null);
         mobImg.setImageResource(id);
         encounter();
     }
