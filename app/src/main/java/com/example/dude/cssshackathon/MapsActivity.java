@@ -77,6 +77,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         mMap = googleMap;
         mMap.setMinZoomPreference(18);
         mMap.setMaxZoomPreference(18);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -134,7 +135,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         if(deviceMoved && mMarker == null){
             createRandomMapMarker();
         }
-        beginEncounter();
+        //beginEncounter();
 
         mMap.animateCamera(CameraUpdateFactory.newLatLng(latlng));
     }
@@ -253,8 +254,8 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
 
         if(Math.abs(latLng.latitude - nearbyLatLng.latitude ) <= DISTANCE_REQUIRED_LAT
                 && Math.abs(latLng.longitude - nearbyLatLng.latitude) <= DISTANCE_REQUIRED_LNG){
-            activity_second.game.encounter();
             mMarker.remove();
+            activity_second.game.encounter();
         }
 
     }
