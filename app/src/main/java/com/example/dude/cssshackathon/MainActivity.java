@@ -9,13 +9,11 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
 
-    public Button btnFight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        btnFight = (Button) findViewById(R.id.fight);
     }
 
     public void startSecondActivity(View view){
