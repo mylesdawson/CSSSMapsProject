@@ -212,6 +212,12 @@ public class BattleActivity extends AppCompatActivity {
             return 1;
         }
     }
+
+    private void universalListener(String input){ //to call: universalListener(btn.getText())
+        if(input.equals("attack")){
+
+        }
+    }
 }
 
 //test
