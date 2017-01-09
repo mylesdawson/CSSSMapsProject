@@ -213,9 +213,48 @@ public class BattleActivity extends AppCompatActivity {
         }
     }
 
-    private void universalListener(String input){ //to call: universalListener(btn.getText())
+    private void battleListener(String input){ //to call: battleListener(btn.getText())
         if(input.equals("attack")){
+            int dmg = ran.nextInt(50+lvl*2) + lvl;
+            enemyHpVal -= dmg;
+            setEnemyHP();
+            Toast.makeText(this, "You attacked for " + dmg + " Damage.", Toast.LENGTH_SHORT).show();
+            if(enemyHpVal <= 0){
+                lvl++;
+                ammo += ran.nextInt(lvl);
+                hpPot += ran.nextInt(lvl);
 
+                atkPlayer = MediaPlayer.create(getApplicationContext(), R.raw.explosion);
+                atkPlayer.start();
+
+                save();
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                startActivity(intent);
+                return;
+                //Return to map
+                //Gain items/xp
+            }
+            //enemy turn
+            playerHpVal -= ran.nextInt(50+lvl);
+            if(playerHpVal <= 0) {
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                startActivity(intent);
+            }
+            return;
+        }
+        if(input.equals("abilities")){
+            // to be added
+        }
+        if(input.equals("items")){
+            // to be added
+        }
+        if(input.equals("back")){
+
+        }
+        if(input.equals("run")){
+            save();
+            Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+            startActivity(intent);
         }
     }
 }
