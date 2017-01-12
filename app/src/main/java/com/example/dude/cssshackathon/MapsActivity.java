@@ -5,18 +5,14 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -28,15 +24,16 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.SphericalUtil;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class MapsActivity extends AppCompatActivity implements LocationListener, OnMapReadyCallback,
@@ -47,7 +44,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
 
     private static double MAX_DISTANCE = .0001;
-    private static double MAX_DISTANCE_NEGATIVE = -.001;
+    private static double MAX_DISTANCE_METERS = 10;
     public boolean deviceMoved = false;
 
     private static double DISTANCE_REQUIRED_LAT = .000082;
@@ -59,6 +56,8 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     public Marker mMarker;
     private LatLng latLng;
     private LatLng nearbyLatLng;
+
+    private double currDistanceBetween;
 
     MediaPlayer mediaPlayer;
 
@@ -119,6 +118,23 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         handleNewLocation(location);
     }
 
+    private void handleNewLocation(Location location) {
+        Log.d(TAG, location.toString());
+        double currentLatitude = location.getLatitude();
+        double currentLongitude = location.getLongitude();
+        latLng = new LatLng(currentLatitude, currentLongitude);
+
+        if(mMarker == null && deviceMoved){
+            createRandomMapMarker();
+        }
+
+        computeDistance();
+        if(currDistanceBetween <= MAX_DISTANCE_METERS){
+            beginEncounter();
+        }
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+    }
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         // on when connected with GoogleApiClient
@@ -138,23 +154,6 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
     }
-
-    private void handleNewLocation(Location location) {
-        Log.d(TAG, location.toString());
-        double currentLatitude = location.getLatitude();
-        double currentLongitude = location.getLongitude();
-        LatLng aLatlgn= new LatLng(currentLatitude, currentLongitude);
-
-        latLng = aLatlgn;
-
-        if(mMarker == null && deviceMoved){
-            createRandomMapMarker();
-        }
-        beginEncounter();
-
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-    }
-
 
     @Override
     public void onConnectionSuspended(int i) {
@@ -231,28 +230,36 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         mGoogleApiClient.disconnect();
     }
 
-    // Cases: onstart: create a map marker
+    // Cases: on start: create a map marker
     //        after reaching old marker. delete current marker and make new one
       public void createRandomMapMarker(){
 
           if(mMarker == null){
               //.makeText(this, "gets here", Toast.LENGTH_SHORT).show();
               mMarker = mMap.addMarker(new MarkerOptions()
-                      .position(findRandomNearbyLocation(latLng))
+                      .position(findNearbyLocation())
                       .title("Fight!"));
               mMarker.setTag(0);
           }else{
               mMarker.remove();
               mMarker = mMap.addMarker(new MarkerOptions()
-                      .position(findRandomNearbyLocation(latLng))
+                      .position(findNearbyLocation())
                       .title("Fight!"));
               mMarker.setTag(0);
           }
-
       }
 
+    // TODO: test if this works
+    public LatLng findNearbyLocation(){
 
-    public LatLng findRandomNearbyLocation(LatLng latLgn) {
+        int distance = ThreadLocalRandom.current().nextInt(5,10);
+        int direction = ThreadLocalRandom.current().nextInt(0,360);
+
+        nearbyLatLng = SphericalUtil.computeOffset(latLng,distance,direction);
+        return  nearbyLatLng;
+    }
+
+/*    public LatLng findRandomNearbyLocation(LatLng latLgn) {
         double currLatitude = latLgn.latitude;
         double currLongitude = latLgn.longitude;
 
@@ -262,23 +269,22 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         double markerLatitude = currLatitude + randomLatLocation;
         double markerLongitude = currLongitude + randomLngLocation;
 
-
-        LatLng latlgn = new LatLng(markerLatitude, markerLongitude);
-        nearbyLatLng = latlgn;
+        nearbyLatLng = new LatLng(markerLatitude, markerLongitude);
         return nearbyLatLng;
-    }
+    }*/
 
     public void beginEncounter(){
-        double latDifference = Math.abs(latLng.latitude - nearbyLatLng.latitude);
-        double lngDifference = Math.abs(latLng.longitude - nearbyLatLng.longitude);
-        //Toast.makeText(this, "latDifference is: " + latDifference + "lgnDifference is: " + lngDifference + "\n", Toast.LENGTH_LONG).show();
-        if( latDifference <= DISTANCE_REQUIRED_LAT
-                && lngDifference <= DISTANCE_REQUIRED_LNG){
-            Intent intent = new Intent(this, BattleActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        Intent intent = new Intent(this, BattleActivity.class);
+        startActivity(intent);
+        finish();
     }
+
+    public void computeDistance(){
+        currDistanceBetween = SphericalUtil.computeDistanceBetween(latLng, nearbyLatLng);
+    }
+
+
+
 
 
 }

@@ -2,86 +2,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context="com.example.dude.cssshackathon.MapsActivity" />
-
-
-
-        <!--<LinearLayout
-            android:id="@+id/topRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-
-            android:layout_above="@+id/botRow">
-
-            <Button
-                android:textColor="#fff"
-                android:text="char sheet"
-                android:background="@color/colorAccent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:layout_weight="1"
-                android:textSize="11dp"
-                android:id="@+id/characterSheetB" />
-
-            <Button
-                android:textColor="#fff"
-                android:text="shop"
-                android:background="@color/colorAccent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:layout_weight="1"
-                android:textSize="11dp"
-                android:id="@+id/shopB" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/botRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
-
-            <Button
-                android:textColor="#fff"
-                android:text="wip"
-                android:background="@color/colorAccent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:layout_weight="1"
-                android:textSize="11dp"
-                android:id="@+id/wip" />
-
-            <Button
-                android:textColor="#fff"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:layout_margin="12dp"
-                android:id="@+id/backB"
-                android:layout_weight="1"
-                android:layout_above="@+id/shopB"
-                android:textSize="11dp"
-                android:text="back" />
-
-        </LinearLayout>
--->
-    </RelativeLayout>
-
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.dude.cssshackathon.MapsActivity" />
 
 </LinearLayout>
